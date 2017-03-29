@@ -13,13 +13,13 @@ tao-dialog,
   display: none;
   overflow: hidden;
 
-  &.modal {
+  &.mask {
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.55);
     transition: opacity .2s ease-in-out;
   }
 
-  &.modal.open {
+  &.mask.open {
     opacity: 1;
   }
 
@@ -40,21 +40,5 @@ tao-dialog,
     transform: translate(0, -30%);
     transition: transform .3s ease-in-out, opacity .3s ease-in-out, width .2s ease-in-out;
     opacity: 0;
-
-    .tao-dialog-content {
-      padding: 30px;
-    }
-  }
-
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    text-decoration: none;
-    color: #9b9b9b;
-
-    &:hover {
-      color: darken($color: #9b9b9b, $amount: 20%);
-    }
   }
 }

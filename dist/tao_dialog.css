@@ -11,13 +11,13 @@ tao-dialog,
   z-index: 1050;
   display: none;
   overflow: hidden; }
-  tao-dialog.modal,
-  .tao-dialog.modal {
+  tao-dialog.mask,
+  .tao-dialog.mask {
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.55);
     transition: opacity .2s ease-in-out; }
-  tao-dialog.modal.open,
-  .tao-dialog.modal.open {
+  tao-dialog.mask.open,
+  .tao-dialog.mask.open {
     opacity: 1; }
   tao-dialog.open .tao-dialog-wrapper,
   .tao-dialog.open .tao-dialog-wrapper {
@@ -36,16 +36,3 @@ tao-dialog,
     transform: translate(0, -30%);
     transition: transform .3s ease-in-out, opacity .3s ease-in-out, width .2s ease-in-out;
     opacity: 0; }
-    tao-dialog .tao-dialog-wrapper .tao-dialog-content,
-    .tao-dialog .tao-dialog-wrapper .tao-dialog-content {
-      padding: 30px; }
-  tao-dialog .close-button,
-  .tao-dialog .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    text-decoration: none;
-    color: #9b9b9b; }
-    tao-dialog .close-button:hover,
-    .tao-dialog .close-button:hover {
-      color: #686868; }

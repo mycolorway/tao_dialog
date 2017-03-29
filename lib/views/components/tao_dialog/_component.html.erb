@@ -1,10 +1,5 @@
 <%= content_tag 'tao-dialog', component.options do %>
   <div class="tao-dialog-wrapper">
-    <a href="javascript:;" class="close-button">
-      <span>&times;</span>
-    </a>
-    <div class="tao-dialog-content">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 <% end %>

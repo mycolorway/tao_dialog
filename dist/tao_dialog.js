@@ -12,14 +12,19 @@
 
     TaoDialog.tag('tao-dialog');
 
-    TaoDialog.attribute('modal', {
+    TaoDialog.attribute('mask', {
       type: 'boolean',
       "default": true
     });
 
-    TaoDialog.attribute('closeable', {
+    TaoDialog.attribute('maskCloseable', {
       type: 'boolean',
       "default": true
+    });
+
+    TaoDialog.attribute('destroyOnClose', {
+      type: 'boolean',
+      "default": false
     });
 
     TaoDialog.attribute('active', {
@@ -30,15 +35,17 @@
 
     TaoDialog.attribute('closeActionSelector', {
       type: 'string',
-      "default": '.close, .close-button'
+      "default": '.button-close'
     });
 
     TaoDialog.prototype._connected = function() {
       this.wrapper = this.jq.find('.tao-dialog-wrapper');
-      if (this.modal) {
-        this.jq.addClass('modal');
+      if (this.mask) {
+        this.jq.addClass('mask');
       }
-      this._setMaxHeight();
+      if (this.closeable) {
+        this.jq.addClass('closeable');
+      }
       this._bind();
       if (this.active) {
         return this._show();
@@ -48,7 +55,7 @@
     TaoDialog.prototype._bind = function() {
       this.on('click.tao-dialog', (function(_this) {
         return function(e) {
-          if ($(e.target).is('tao-dialog') && _this.closeable) {
+          if ($(e.target).is('tao-dialog.mask') && _this.maskCloseable) {
             return _this.close();
           }
         };
@@ -62,7 +69,7 @@
         return function() {
           return _this._setMaxHeight();
         };
-      })(this));
+      })(this)).resize();
     };
 
     TaoDialog.prototype._activeChanged = function() {
@@ -97,7 +104,10 @@
       return this.wrapper.one('transitionend', (function(_this) {
         return function() {
           $('body').removeClass('tao-dialog-open');
-          return _this.jq.hide().trigger('closed.tao-dialog');
+          _this.jq.hide().trigger('closed.tao-dialog');
+          if (_this.destroyOnClose) {
+            return _this.jq.remove();
+          }
         };
       })(this));
     };

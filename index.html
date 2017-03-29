@@ -14,6 +14,10 @@
 			position: relative;
 			margin: 80px auto;
 		}
+
+    .tao-dialog-content {
+      padding: 40px;
+    }
 	</style>
 
 	<script type="text/javascript" src="dist/tao.js"></script>
@@ -24,50 +28,60 @@
   <div class="wrapper">
     <tao-dialog>
       <div class="tao-dialog-wrapper">
-        <a href="javascript:;" class="close-button">
-          <span>&times;</span>
-        </a>
         <div class="tao-dialog-content">
-          Show dialog unless active attribute is false.
+          <p>show dialog unless active attribute is false.</p>
+          <div class="buttons">
+            <button type="button" class="button-close">Close</button>
+          </div>
         </div>
       </div>
     </tao-dialog>
 
-    <button type="button" class="show-closeable-dialog">
-      closeable
+    <button type="button" class="button-show-dialog">
+      show dialog
     </button>
-    <tao-dialog active="false" class="closeable-dialog">
+
+    <label>
+      maskCloseable
+      <input type="checkbox" class="input-mask-closeable" checked>
+    </label>
+
+    <label>
+      destroyOnClose
+      <input type="checkbox" class="input-destroy-on-close">
+    </label>
+
+    <tao-dialog active="false" class="demo-dialog">
       <div class="tao-dialog-wrapper">
-        <a href="javascript:;" class="close-button">
-          <span>&times;</span>
-        </a>
         <div class="tao-dialog-content">
-          If closeable is true, should close the dialog when click the outside.
+          <p>basic modal</p>
+          <div class="buttons">
+            <button type="button" class="button-close">Close</button>
+          </div>
         </div>
       </div>
     </tao-dialog>
     <script type="text/javascript">
-      $('.show-closeable-dialog').on('click', function() {
-        document.querySelector('.closeable-dialog').show();
+      var $demoDialog = $('.demo-dialog').clone();
+      $('.button-show-dialog').on('click', function() {
+        demoDialog = $('.demo-dialog').get(0);
+
+        if (!demoDialog) {
+          demoDialog = $demoDialog.clone()
+            .attr('mask-closeable', $('.input-mask-closeable').is(':checked'))
+            .attr('destroy-on-close', $('.input-destroy-on-close').is(':checked'))
+            .appendTo($('.wrapper')).get(0);
+        }
+
+        demoDialog.show();
       });
-    </script>
 
-    <button type="button" class="show-not-closeable-dialog">
-      not closeable
-    </button>
-    <tao-dialog active="false" closeable="false" class="not-closeable-dialog">
-      <div class="tao-dialog-wrapper">
-        <a href="javascript:;" class="close-button">
-          <span>&times;</span>
-        </a>
-        <div class="tao-dialog-content">
-          If closeable is false, can't close the dialog when click the outside.
-        </div>
-      </div>
-    </tao-dialog>
-    <script type="text/javascript">
-      $('.show-not-closeable-dialog').on('click', function() {
-        document.querySelector('.not-closeable-dialog').show();
+      $('.input-mask-closeable').on('change', function() {
+        $('.demo-dialog').attr('mask-closeable', $(this).is(':checked'))
+      });
+
+      $('.input-destroy-on-close').on('change', function() {
+        $('.demo-dialog').attr('destroy-on-close', $(this).is(':checked'))
       });
     </script>
   </div>
