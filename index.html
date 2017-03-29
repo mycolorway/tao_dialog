@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TaoDialog</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link media="all" rel="stylesheet" type="text/css" href="dist/tao.css">
+	<link media="all" rel="stylesheet" type="text/css" href="dist/tao_dialog.css">
+	<style>
+		.wrapper {
+			width: 800px;
+			height: 600px;
+			position: relative;
+			margin: 80px auto;
+		}
+	</style>
+
+	<script type="text/javascript" src="dist/tao.js"></script>
+	<script type="text/javascript" src="dist/tao_dialog.js"></script>
+
+</head>
+<body>
+  <div class="wrapper">
+    <tao-dialog>
+      <div class="tao-dialog-wrapper">
+        <a href="javascript:;" class="close-button">
+          <span>&times;</span>
+        </a>
+        <div class="tao-dialog-content">
+          Show dialog unless active attribute is false.
+        </div>
+      </div>
+    </tao-dialog>
+
+    <button type="button" class="show-closeable-dialog">
+      closeable
+    </button>
+    <tao-dialog active="false" class="closeable-dialog">
+      <div class="tao-dialog-wrapper">
+        <a href="javascript:;" class="close-button">
+          <span>&times;</span>
+        </a>
+        <div class="tao-dialog-content">
+          If closeable is true, should close the dialog when click the outside.
+        </div>
+      </div>
+    </tao-dialog>
+    <script type="text/javascript">
+      $('.show-closeable-dialog').on('click', function() {
+        document.querySelector('.closeable-dialog').show();
+      });
+    </script>
+
+    <button type="button" class="show-not-closeable-dialog">
+      not closeable
+    </button>
+    <tao-dialog active="false" closeable="false" class="not-closeable-dialog">
+      <div class="tao-dialog-wrapper">
+        <a href="javascript:;" class="close-button">
+          <span>&times;</span>
+        </a>
+        <div class="tao-dialog-content">
+          If closeable is false, can't close the dialog when click the outside.
+        </div>
+      </div>
+    </tao-dialog>
+    <script type="text/javascript">
+      $('.show-not-closeable-dialog').on('click', function() {
+        document.querySelector('.not-closeable-dialog').show();
+      });
+    </script>
+  </div>
+</body>
+</html>
