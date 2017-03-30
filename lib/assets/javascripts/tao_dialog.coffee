@@ -15,9 +15,9 @@ class TaoDialog extends TaoComponent
   _connected: ->
     @wrapper = @jq.find '.tao-dialog-wrapper'
     @jq.addClass 'mask' if @mask
-    @jq.addClass 'closeable' if @closeable
 
     @_bind()
+    @_updateMaxHeight()
     @_show() if @active
 
   _bind: ->
@@ -26,9 +26,10 @@ class TaoDialog extends TaoComponent
 
     @on 'click.tao-dialog', @closeActionSelector, => @close()
 
-    $(window).on "resize.tao-dialog-#{@taoId}", =>
-      @_setMaxHeight()
-    .resize()
+    $(document).on "keydown.tao-dialog-#{@taoId}", (e) =>
+      @close() if e.which == 27 && @maskCloseable
+
+    $(window).on "resize.tao-dialog-#{@taoId}", => @_updateMaxHeight()
 
   _activeChanged: ->
     if @active then @_show() else @_close()
@@ -52,11 +53,12 @@ class TaoDialog extends TaoComponent
       @jq.hide().trigger 'closed.tao-dialog'
       @jq.remove() if @destroyOnClose
 
-  _setMaxHeight: ->
+  _updateMaxHeight: ->
     @wrapper.css 'maxHeight', document.documentElement.clientHeight - 40
 
   _disconnected: ->
     @off '.tao-dialog'
+    $(document).off "keydown.tao-dialog-#{@taoId}"
     $(window).off "resize.tao-dialog-#{@taoId}"
 
 TaoComponent.register TaoDialog

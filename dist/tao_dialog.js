@@ -43,10 +43,8 @@
       if (this.mask) {
         this.jq.addClass('mask');
       }
-      if (this.closeable) {
-        this.jq.addClass('closeable');
-      }
       this._bind();
+      this._updateMaxHeight();
       if (this.active) {
         return this._show();
       }
@@ -65,11 +63,18 @@
           return _this.close();
         };
       })(this));
+      $(document).on("keydown.tao-dialog-" + this.taoId, (function(_this) {
+        return function(e) {
+          if (e.which === 27 && _this.maskCloseable) {
+            return _this.close();
+          }
+        };
+      })(this));
       return $(window).on("resize.tao-dialog-" + this.taoId, (function(_this) {
         return function() {
-          return _this._setMaxHeight();
+          return _this._updateMaxHeight();
         };
-      })(this)).resize();
+      })(this));
     };
 
     TaoDialog.prototype._activeChanged = function() {
@@ -112,12 +117,13 @@
       })(this));
     };
 
-    TaoDialog.prototype._setMaxHeight = function() {
+    TaoDialog.prototype._updateMaxHeight = function() {
       return this.wrapper.css('maxHeight', document.documentElement.clientHeight - 40);
     };
 
     TaoDialog.prototype._disconnected = function() {
       this.off('.tao-dialog');
+      $(document).off("keydown.tao-dialog-" + this.taoId);
       return $(window).off("resize.tao-dialog-" + this.taoId);
     };
 
