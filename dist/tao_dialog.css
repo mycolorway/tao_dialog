@@ -35,4 +35,5 @@ tao-dialog,
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     transform: translate(0, -30%);
     transition: transform .3s ease-in-out, opacity .3s ease-in-out, width .2s ease-in-out;
-    opacity: 0; }
+    opacity: 0;
+    overflow-y: auto; }
